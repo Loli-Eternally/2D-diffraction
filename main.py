@@ -19,7 +19,6 @@ def dipole():
 
     return fig1, fig2
 
-
 def ridge_waveguide():
     omega = 2 * np.pi * 200e12
     dl = 0.01  # grid size (units of L0, which defaults to 1e-6)
