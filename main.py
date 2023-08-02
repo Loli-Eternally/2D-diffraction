@@ -11,7 +11,7 @@ def dipole():
 
     simulation = Simulation(omega, eps_r, dl, NPML, 'Ez')
     simulation.src[100, 100] = 1
-    simulation.solve_fields(
+    simulation.solve_fields()
 
     simulation.plt_abs(outline=False, cbar=True);
     simulation.plt_re(outline=False, cbar=True);
