@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 from DiffractiX import Simulation
@@ -13,11 +14,12 @@ def dipole():
     simulation.src[100, 100] = 1
     simulation.solve_fields()
 
-    simulation.plt_abs(outline=False, cbar=True);
-    simulation.plt_re(outline=False, cbar=True);
+    fig1 = simulation.plt_abs(outline=False, cbar=True)
+    fig2 = simulation.plt_re(outline=False, cbar=True)
+
+    return fig1, fig2
 
 # 按间距中的绿色按钮以运行脚本。
 if __name__ == '__main__':
     dipole()
-
-# 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+    plt.show()
