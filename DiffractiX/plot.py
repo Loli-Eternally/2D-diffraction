@@ -1,6 +1,6 @@
-import numpy as np
+import matplotlib.animation as mpla
 import matplotlib.pyplot as plt
-import matplotlib as mpl
+import numpy as np
 from matplotlib.colors import LogNorm
 
 
@@ -84,7 +84,7 @@ def plt_base_ani(field_val, cbar=True, Nframes=40, interval=80):
         return (h,)
 
     plt.close()
-    return mpl.animation.FuncAnimation(fig, animate, init_func=init,
+    return mpla.FuncAnimation(fig, animate, init_func=init,
                                        frames=Nframes, interval=interval,
                                        blit=True)
 

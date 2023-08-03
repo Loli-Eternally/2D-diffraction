@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.sparse as sp
 import scipy.sparse.linalg as spl
+from scipy.sparse.linalg import spsolve
 
 try:
     from pyMKL import pardisoSolver
@@ -10,7 +11,7 @@ except:
 
 from time import time
 
-from DiffractiX.constants import DEFAULT_MATRIX_FORMAT, DEFAULT_SOLVER
+from DiffractiX.constants import DEFAULT_MATRIX_FORMAT
 from DiffractiX.constants import EPSILON_0, MU_0
 from DiffractiX.pml import S_create
 from DiffractiX.derivatives import createDws
@@ -132,13 +133,13 @@ def solver_direct(A, b, timing=False, solver=SOLVER):
     if timing:
         t = time()
 
-    if solver.lower() == 'pardiso':
+    if SOLVER.lower() == 'pardiso':
         pSolve = pardisoSolver(A, mtype=13) # Matrix is complex unsymmetric due to SC-PML
         pSolve.factor()
         x = pSolve.solve(b)
         pSolve.clear()
 
-    elif solver.lower() == 'scipy':
+    elif SOLVER.lower() == 'scipy':
         x = spl.spsolve(A, b)
 
     else:
@@ -169,13 +170,13 @@ def solver_complex2real(A11, A12, b, timing=False, solver=SOLVER):
     if timing:
         t = time()
 
-    if solver.lower() == 'pardiso':
+    if SOLVER.lower() == 'pardiso':
         pSolve = pardisoSolver(Areal, mtype=11)  # Matrix is real unsymmetric
         pSolve.factor()
         x = pSolve.solve(np.hstack((b_re, b_im)))
         pSolve.clear()
 
-    elif solver.lower() == 'scipy':
+    elif SOLVER.lower() == 'scipy':
         x = spsolve(Areal, np.hstack((b_re, b_im)))
 
     else:
